@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BeneficialGoods.Networking
 {
-    class NetworkServiceImpl : NetworkService
+    internal class NetworkServiceImpl : NetworkService
     {
-        public DataModel GetData()
+        public ShopifyResponseDataModel GetData()
         {
             throw new NotImplementedException();
         }

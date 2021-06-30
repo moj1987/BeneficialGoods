@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BeneficialGoods.Networking
 {
-    interface NetworkService
+    internal interface NetworkService
     {
-        DataModel GetData();
+        ShopifyResponseDataModel GetData();
     }
 }
