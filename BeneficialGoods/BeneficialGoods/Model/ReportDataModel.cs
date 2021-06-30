@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace BeneficialGoods.Model
 {
-    internal class ShopifyResponseDataModel
+    class ReportDataModel
     {
-        //get the data from Shopify via REST apis.
     }
 }
