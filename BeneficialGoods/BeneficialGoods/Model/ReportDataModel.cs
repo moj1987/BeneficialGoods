@@ -31,21 +31,21 @@ namespace BeneficialGoods.Model
             set { _contractPrice = value; }
         }
 
-        private int QuantitySold;
+        private int _quantitySold;
 
-        public int _quantitySold
+        public int QuantitySold
         {
             get { return _quantitySold; }
             set { _quantitySold = value; }
         }
 
-        public decimal calculateNetPrice(decimal fees)
+        public decimal CalculateNetPrice(decimal fees)
         {
             decimal netPrice = ContractPrice - fees;
             return netPrice;
         }
 
-        public decimal calculatePayoutPerItem(decimal netPrice)
+        public decimal CalculatePayoutPerItem(decimal netPrice)
         {
             decimal payoutPerItem = netPrice * QuantitySold;
             return payoutPerItem;
