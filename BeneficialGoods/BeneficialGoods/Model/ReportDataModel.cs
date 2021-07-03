@@ -8,8 +8,12 @@ namespace BeneficialGoods.Model
 {
     internal class ReportDataModel
     {
-        public ReportDataModel(long productId, string productName, decimal contractPrice, decimal quantitySold)
+        public ReportDataModel(long productId, string productName, decimal contractPrice, int quantitySold)
         {
+            ProductId = productId;
+            ProductName = productName;
+            ContractPrice = contractPrice;
+            QuantitySold = quantitySold;
         }
 
         public long ProductId
@@ -39,16 +43,31 @@ namespace BeneficialGoods.Model
             set { _quantitySold = value; }
         }
 
+        public decimal Fees
+        {
+            get; set;
+        }
+
+        public decimal NetPrice
+        {
+            get; set;
+        }
+
+        public decimal PayoutPerItem
+        {
+            get; set;
+        }
+
         public decimal CalculateNetPrice(decimal fees)
         {
-            decimal netPrice = ContractPrice - fees;
-            return netPrice;
+            NetPrice = ContractPrice - fees;
+            return NetPrice;
         }
 
         public decimal CalculatePayoutPerItem(decimal netPrice)
         {
-            decimal payoutPerItem = netPrice * QuantitySold;
-            return payoutPerItem;
+            PayoutPerItem = netPrice * QuantitySold;
+            return PayoutPerItem;
         }
     }
 }
