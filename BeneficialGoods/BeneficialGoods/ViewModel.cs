@@ -26,7 +26,11 @@ namespace BeneficialGoods
         public ReportDataModel SelectedProduct
         {
             get { return selectedProduct; }
-            set { selectedProduct = value; propertyChanged(); }
+            set
+            {
+                selectedProduct = value;
+                propertyChanged();
+            }
         }
 
         private string productName;
@@ -85,25 +89,23 @@ namespace BeneficialGoods
             var sampleReports = sampleReport.GetSampleReportData();
             foreach (ReportDataModel r in sampleReports)
             {
-                products.Add(r);
+                Products.Add(r);
             }
-            updateProducts();
         }
 
         internal void Calculate()
         {
+            if (SelectedProduct == null)
+            {
+                return;
+            }
+            if (SelectedProduct.Fees == 0)
+            {
+                return;
+            }
             SelectedProduct.NetPrice = SelectedProduct.CalculateNetPrice(SelectedProduct.Fees);
             SelectedProduct.PayoutPerItem = SelectedProduct.CalculatePayoutPerItem(SelectedProduct.NetPrice);
             this.Products.ResetBindings();
-        }
-
-        private void updateProducts()
-        {
-            Products.Clear();
-            foreach (ReportDataModel r in products)
-            {
-                Products.Add(r);
-            }
         }
 
         #region Property Changed
