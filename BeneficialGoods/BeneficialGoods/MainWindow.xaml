@@ -7,6 +7,47 @@
         mc:Ignorable="d"
         Title="Beneficial Goods" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Text="{Binding Fees}" HorizontalContentAlignment="Stretch" />
+        <StackPanel></StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+            <Label  Content="Product name" />
+            <Label  Content="contract price" />
+            <Label  Content="net price" />
+            <Label  Content="fees" />
+            <Label Content="quantity sold" />
+            <Label  Content="payout per item" />
+        </StackPanel>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}"
+                 Margin="5 0 5 5" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="{Binding ProductName}" HorizontalContentAlignment="Center" />
+                        <Label Grid.Column="1" Content="{Binding ContractPrice}" HorizontalContentAlignment="Center" />
+                        <TextBox Grid.Column="2" Text="{Binding Fees}" HorizontalContentAlignment="Center" />
+                        <Label Grid.Column="3" Content="{Binding NetPrice}" HorizontalContentAlignment="Center" />
+                        <Label Grid.Column="4" Content="{Binding QuantitySold}" HorizontalContentAlignment="Center" />
+                        <Label Grid.Column="5" Content="{Binding PayoutPerItem}" HorizontalContentAlignment="Center" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Width="100" Click="LoadData">Load</Button>
+            <Button Width="100" Click="Calculate">Calculate</Button>
+        </StackPanel>
     </Grid>
 </Window>

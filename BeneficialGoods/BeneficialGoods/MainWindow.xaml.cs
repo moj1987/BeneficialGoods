@@ -20,9 +20,22 @@ namespace BeneficialGoods
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ViewModel viewModel = new ViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = viewModel;
+        }
+
+        private void LoadData(object sender, RoutedEventArgs e)
+        {
+            viewModel.LoadData();
+        }
+
+        private void Calculate(object sender, RoutedEventArgs e)
+        {
+            viewModel.Calculate();
         }
     }
 }
