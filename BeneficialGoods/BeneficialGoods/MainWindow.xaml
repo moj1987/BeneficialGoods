@@ -5,22 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BeneficialGoods"
         mc:Ignorable="d"
-        Title="Beneficial Goods" Height="450" Width="800">
+        Title="Beneficial Goods" Height="550" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="5*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Text="{Binding Fees}" HorizontalContentAlignment="Stretch" />
-        <StackPanel></StackPanel>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
-            <Label  Content="Product name" />
-            <Label  Content="contract price" />
-            <Label  Content="net price" />
-            <Label  Content="fees" />
-            <Label Content="quantity sold" />
-            <Label  Content="payout per item" />
+        <StackPanel VerticalAlignment="Bottom">
+            <Label Content="LOGO " HorizontalAlignment="Center"></Label>
+            <Label Content="Beneficial Goods" HorizontalAlignment="Center"></Label>
+            <Label Content="Beneficiary Name" HorizontalAlignment="Center"></Label>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Width="50" Content="From" HorizontalContentAlignment="Center" />
+                <DatePicker Width="220" Text="{Binding FromDate}"></DatePicker>
+                <Label Width="50" Content="To" HorizontalContentAlignment="Center" />
+                <DatePicker Width="220"  Text="{Binding ToDate}"></DatePicker>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                <Label Width="220" Content="Product name" HorizontalContentAlignment="Center" />
+                <Label Width="100" Content="contract price" HorizontalContentAlignment="Center" />
+                <Label Width="100" Content="net price"  HorizontalContentAlignment="Center" />
+                <Label Width="100" Content="fees" HorizontalContentAlignment="Center" />
+                <Label Width="100" Content="quantity sold" HorizontalContentAlignment="Center" />
+                <Label Width="100" Content="payout per item" HorizontalContentAlignment="Center" />
+            </StackPanel>
         </StackPanel>
         <ListBox Grid.Row="1" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}"
                  Margin="5 0 5 5" HorizontalContentAlignment="Stretch">
@@ -28,7 +38,7 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
