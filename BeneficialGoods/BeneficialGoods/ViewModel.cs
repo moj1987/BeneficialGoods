@@ -86,8 +86,9 @@ namespace BeneficialGoods
         internal void LoadData()
         {
             SampleReportData sampleReport = new SampleReportData();
-            var sampleReports = sampleReport.GetSampleReportData();
-            foreach (ReportDataModel r in sampleReports)
+            var sampleReports = sampleReport.GetSampleReportData2();
+            var sortedReports = sampleReports.OrderBy(c => c.ProductName);
+            foreach (ReportDataModel r in sortedReports)
             {
                 Products.Add(r);
             }

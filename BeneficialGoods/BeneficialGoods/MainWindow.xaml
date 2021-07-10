@@ -27,8 +27,8 @@
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                 <Label Width="220" Content="Product name" HorizontalContentAlignment="Center" />
                 <Label Width="100" Content="contract price" HorizontalContentAlignment="Center" />
-                <Label Width="100" Content="net price"  HorizontalContentAlignment="Center" />
                 <Label Width="100" Content="fees" HorizontalContentAlignment="Center" />
+                <Label Width="100" Content="net price"  HorizontalContentAlignment="Center" />
                 <Label Width="100" Content="quantity sold" HorizontalContentAlignment="Center" />
                 <Label Width="100" Content="payout per item" HorizontalContentAlignment="Center" />
             </StackPanel>
@@ -39,7 +39,7 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="4*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -57,7 +57,9 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+
             <Button Width="100" Click="LoadData">Load</Button>
+
             <Button Width="100" Click="Calculate">Calculate</Button>
         </StackPanel>
     </Grid>
