@@ -8,7 +8,7 @@ namespace BeneficialGoods.Model
 {
     internal class ReportDataModel
     {
-        public ReportDataModel(long productId, string productName, decimal contractPrice, int quantitySold)
+        public ReportDataModel(long? productId, string productName, decimal contractPrice, int quantitySold)
         {
             ProductId = productId;
             ProductName = productName;
@@ -16,7 +16,7 @@ namespace BeneficialGoods.Model
             QuantitySold = quantitySold;
         }
 
-        public long ProductId
+        public long? ProductId
         {
             get; set;
         }
