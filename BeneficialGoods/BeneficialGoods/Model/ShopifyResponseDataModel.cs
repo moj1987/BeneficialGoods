@@ -19,7 +19,7 @@ namespace BeneficialGoods.Model
             var client = new RestClient(SHOPIFY_URL);
             client.Authenticator = new HttpBasicAuthenticator(APP_ID, APP_PASSWORD);
             client.Timeout = -1;
-            var request = new RestRequest("admin/api/2021-04/orders.json", Method.GET, DataFormat.Json);
+            var request = new RestRequest("admin/api/2021-04/orders.json?created_at_min=2021-05-01T00:00:00-04:00&created_at_max=2021-05-31T00:00:00-04:00&status=any&fields=line_items,created_at,financial_status", Method.GET, DataFormat.Json);
             IRestResponse response = client.Execute(request);
             return response;
         }

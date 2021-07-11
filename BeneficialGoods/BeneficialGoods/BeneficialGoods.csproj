@@ -79,7 +79,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\ReportDataModel.cs" />
-    <Compile Include="Helper\RegInfoResponseObj.cs" />
     <Compile Include="Model\ShopifyResponseDataModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
