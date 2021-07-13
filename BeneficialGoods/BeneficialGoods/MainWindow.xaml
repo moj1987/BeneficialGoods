@@ -16,6 +16,8 @@
             <Label Content="LOGO " HorizontalAlignment="Center"></Label>
             <Label Content="Beneficial Goods" HorizontalAlignment="Center"></Label>
             <Label Content="Beneficiary Name" HorizontalAlignment="Center"></Label>
+            <ComboBox Name="BeneficiaryName" Height="24" Width="200"
+                      ItemsSource="{Binding Products}" DisplayMemberPath="ProductName" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Width="50" Content="From" HorizontalContentAlignment="Center" />

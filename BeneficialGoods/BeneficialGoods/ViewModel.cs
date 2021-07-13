@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BeneficialGoods.Utilities;
 using BeneficialGoods.Model;
+using System.Collections.ObjectModel;
 
 namespace BeneficialGoods
 {
@@ -32,6 +33,8 @@ namespace BeneficialGoods
                 propertyChanged();
             }
         }
+
+        private ObservableCollection<string> BeneficiaryName { get; set; } = new ObservableCollection<string>();
 
         private string productName;
 
@@ -91,6 +94,7 @@ namespace BeneficialGoods
             foreach (ReportDataModel r in sortedReports)
             {
                 Products.Add(r);
+                BeneficiaryName.Add(r.ProductName);
             }
         }
 
