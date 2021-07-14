@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BeneficialGoods.Utilities;
 using BeneficialGoods.Model;
+using System.Collections.ObjectModel;
 
 namespace BeneficialGoods
 {
@@ -26,8 +27,14 @@ namespace BeneficialGoods
         public ReportDataModel SelectedProduct
         {
             get { return selectedProduct; }
-            set { selectedProduct = value; propertyChanged(); }
+            set
+            {
+                selectedProduct = value;
+                propertyChanged();
+            }
         }
+
+        private ObservableCollection<string> BeneficiaryName { get; set; } = new ObservableCollection<string>();
 
         private string productName;
 
@@ -82,28 +89,28 @@ namespace BeneficialGoods
         internal void LoadData()
         {
             SampleReportData sampleReport = new SampleReportData();
-            var sampleReports = sampleReport.GetSampleReportData();
-            foreach (ReportDataModel r in sampleReports)
+            var sampleReports = sampleReport.GetSampleReportData2();
+            var sortedReports = sampleReports.OrderBy(c => c.ProductName);
+            foreach (ReportDataModel r in sortedReports)
             {
-                products.Add(r);
+                Products.Add(r);
+                BeneficiaryName.Add(r.ProductName);
             }
-            updateProducts();
         }
 
         internal void Calculate()
         {
+            if (SelectedProduct == null)
+            {
+                return;
+            }
+            if (SelectedProduct.Fees == 0)
+            {
+                return;
+            }
             SelectedProduct.NetPrice = SelectedProduct.CalculateNetPrice(SelectedProduct.Fees);
             SelectedProduct.PayoutPerItem = SelectedProduct.CalculatePayoutPerItem(SelectedProduct.NetPrice);
             this.Products.ResetBindings();
-        }
-
-        private void updateProducts()
-        {
-            Products.Clear();
-            foreach (ReportDataModel r in products)
-            {
-                Products.Add(r);
-            }
         }
 
         #region Property Changed

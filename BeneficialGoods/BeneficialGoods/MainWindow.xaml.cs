@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BeneficialGoods.Model;
 
 namespace BeneficialGoods
 {
@@ -21,11 +22,11 @@ namespace BeneficialGoods
     public partial class MainWindow : Window
     {
         private ViewModel viewModel = new ViewModel();
-
         public MainWindow()
         {
             InitializeComponent();
             DataContext = viewModel;
+            // new ShopifyResponseDataModel();
         }
 
         private void LoadData(object sender, RoutedEventArgs e)
