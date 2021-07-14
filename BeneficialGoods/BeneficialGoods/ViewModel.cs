@@ -84,6 +84,22 @@ namespace BeneficialGoods
             set { _payoutPerItem = value; }
         }
 
+        private DateTime _fromDate = DateTime.Now.Date;
+
+        public DateTime FromDate
+        {
+            get { return _fromDate; }
+            set { _fromDate = value; }
+        }
+
+        private DateTime _toDate = DateTime.Now.Date;
+
+        public DateTime ToDate
+        {
+            get { return _toDate; }
+            set { _toDate = value; }
+        }
+
         #endregion Properties
 
         internal void LoadData()
@@ -104,12 +120,17 @@ namespace BeneficialGoods
             {
                 return;
             }
-            if (SelectedProduct.Fees == 0)
+
+            foreach (ReportDataModel r in Products)
             {
-                return;
+                if (SelectedProduct.Fees == 0)
+                {
+                    continue;
+                }
+                r.NetPrice = r.CalculateNetPrice(SelectedProduct.Fees);
+                r.PayoutPerItem = r.CalculatePayoutPerItem(SelectedProduct.NetPrice);
             }
-            SelectedProduct.NetPrice = SelectedProduct.CalculateNetPrice(SelectedProduct.Fees);
-            SelectedProduct.PayoutPerItem = SelectedProduct.CalculatePayoutPerItem(SelectedProduct.NetPrice);
+
             this.Products.ResetBindings();
         }
 

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:BeneficialGoods"
         mc:Ignorable="d"
         Title="Beneficial Goods" Height="550" Width="800">
@@ -21,9 +22,10 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Width="50" Content="From" HorizontalContentAlignment="Center" />
-                <DatePicker Width="220" Text="{Binding FromDate}"></DatePicker>
+                <DatePicker Width="220"  SelectedDate="{Binding FromDate }" IsTodayHighlighted="True"></DatePicker>
                 <Label Width="50" Content="To" HorizontalContentAlignment="Center" />
-                <DatePicker Width="220"  Text="{Binding ToDate}"></DatePicker>
+                <DatePicker Width="220"  Text="{Binding ToDate}" IsTodayHighlighted="True"
+                            ></DatePicker>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                 <Label Width="220" Content="Product name" HorizontalContentAlignment="Center" />
