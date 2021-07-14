@@ -22,18 +22,6 @@ namespace BeneficialGoods
             get; set;
         } = new BindingList<ReportDataModel>();
 
-        private ReportDataModel selectedProduct;
-
-        public ReportDataModel SelectedProduct
-        {
-            get { return selectedProduct; }
-            set
-            {
-                selectedProduct = value;
-                propertyChanged();
-            }
-        }
-
         private ObservableCollection<string> BeneficiaryName { get; set; } = new ObservableCollection<string>();
 
         private string productName;
@@ -116,19 +104,14 @@ namespace BeneficialGoods
 
         internal void Calculate()
         {
-            if (SelectedProduct == null)
-            {
-                return;
-            }
-
             foreach (ReportDataModel r in Products)
             {
-                if (SelectedProduct.Fees == 0)
+                if (r.Fees == 0)
                 {
                     continue;
                 }
-                r.NetPrice = r.CalculateNetPrice(SelectedProduct.Fees);
-                r.PayoutPerItem = r.CalculatePayoutPerItem(SelectedProduct.NetPrice);
+                r.NetPrice = r.CalculateNetPrice(r.Fees);
+                r.PayoutPerItem = r.CalculatePayoutPerItem(r.NetPrice);
             }
 
             this.Products.ResetBindings();
