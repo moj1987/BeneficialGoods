@@ -8,7 +8,7 @@ namespace BeneficialGoods.Utilities
 {
     internal class SampleJsonResponse
     {
-        private string sampleResponseFromShopify = @"{
+        public string sampleResponseFromShopify = @"{
    ""orders"":[
       {
          ""id"":3889284415651,
