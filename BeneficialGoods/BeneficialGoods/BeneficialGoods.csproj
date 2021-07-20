@@ -66,7 +66,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ProductDataModel.cs" />
     <Compile Include="Utilities\SampleJsonResponse.cs" />
+    <Compile Include="Utilities\SampleProductData.cs" />
     <Compile Include="Utilities\SampleReportData.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">
