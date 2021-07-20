@@ -13,16 +13,21 @@ namespace BeneficialGoods
 {
     internal class ViewModel : INotifyPropertyChanged
     {
-        private List<ReportDataModel> products = new List<ReportDataModel>();
+        private const string ALL_TAG = "All";
 
         #region Properties
 
-        public BindingList<ReportDataModel> Products
+        private List<ReportDataModel> orders = new List<ReportDataModel>();
+
+        public BindingList<ReportDataModel> Orders
         {
             get; set;
         } = new BindingList<ReportDataModel>();
 
-        private ObservableCollection<string> BeneficiaryName { get; set; } = new ObservableCollection<string>();
+        public BindingList<string> ProductTags
+        {
+            get; set;
+        } = new BindingList<string>();
 
         private string productName;
 
@@ -72,6 +77,14 @@ namespace BeneficialGoods
             set { _payoutPerItem = value; }
         }
 
+        private string _selectedTag;
+
+        public string SelectedTag
+        {
+            get { return _selectedTag; }
+            set { _selectedTag = value; FilterOrders(); }
+        }
+
         private DateTime _fromDate = DateTime.Now.Date;
 
         public DateTime FromDate
@@ -90,23 +103,79 @@ namespace BeneficialGoods
 
         #endregion Properties
 
-        internal void LoadData()
+        internal void FilterOrders()
+        {
+            //Show all if "All" is selected
+            if (SelectedTag.Equals(ALL_TAG))
+            {
+                ShowAllOrders();
+                return;
+            }
+
+            SampleProductData sampleProducts = new SampleProductData();
+            var products = sampleProducts.GetSampleReportData();
+
+            var productsWithSelectedTag = products.Where(p => p.Tags == SelectedTag);
+            List<long?> idTags = new List<long?>();
+            foreach (ProductDataModel p in productsWithSelectedTag)
+            {
+                idTags.Add(p.ProductId);
+            }
+
+            List<ReportDataModel> ordersWithTheTag = new List<ReportDataModel>();
+            foreach (ReportDataModel o in orders)
+            {
+                if (idTags.Contains(o.ProductId))
+                {
+                    ordersWithTheTag.Add(o);
+                }
+            }
+
+            Orders.Clear();
+            foreach (ReportDataModel r in ordersWithTheTag)
+            {
+                Orders.Add(r);
+            }
+        }
+
+        internal void LoadProducts()
+        {
+            SampleProductData sampleProducts = new SampleProductData();
+            var products = sampleProducts.GetSampleReportData();
+            Dictionary<string, ProductDataModel> productsDictionary = new Dictionary<string, ProductDataModel>();
+
+            foreach (ProductDataModel p in products)
+            {
+                if (!productsDictionary.ContainsKey(p.Tags))
+                {
+                    productsDictionary.Add(p.Tags, p);
+                }
+            }
+
+            ProductTags.Add(ALL_TAG);
+            foreach (string t in productsDictionary.Keys)
+            {
+                ProductTags.Add(t);
+            }
+        }
+
+        internal void LoadReports()
         {
             SampleReportData sampleReport = new SampleReportData();
             var sampleReports = sampleReport.GetSampleReportData2();
             var sortedReports = sampleReports.OrderBy(c => c.ProductName);
             foreach (ReportDataModel r in sortedReports)
             {
-                Products.Add(r);
-                BeneficiaryName.Add(r.ProductName);
+                orders.Add(r);
             }
+            ShowAllOrders();
         }
 
         internal void Calculate()
         {
-            foreach (ReportDataModel r in Products)
+            foreach (ReportDataModel r in orders)
             {
-                if (r.Fees == 0)
+                if (r.Fees <= 0)
                 {
                     continue;
                 }
@@ -114,7 +183,14 @@ namespace BeneficialGoods
                 r.PayoutPerItem = r.CalculatePayoutPerItem(r.NetPrice);
             }
 
-            this.Products.ResetBindings();
+            this.Orders.ResetBindings();
+        }
+
+        internal void ShowAllOrders()
+        {
+            Orders.Clear();
+            foreach (ReportDataModel r in orders)
+                Orders.Add(r);
         }
 
         #region Property Changed
