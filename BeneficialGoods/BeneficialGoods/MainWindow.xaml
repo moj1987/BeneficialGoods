@@ -18,8 +18,8 @@
             <Label Content="Beneficial Goods" HorizontalAlignment="Center"></Label>
             <Label Content="Beneficiary Name" HorizontalAlignment="Center"></Label>
             <ComboBox Name="BeneficiaryName" Height="24" Width="200"
-                      ItemsSource="{Binding Products}" DisplayMemberPath="ProductName" />
-
+                      ItemsSource="{Binding ProductTags}"  SelectedItem="{Binding SelectedTag}" />
+            <!--DisplayMemberPath="Tags"-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Width="50" Content="From" HorizontalContentAlignment="Center" />
                 <DatePicker Width="220"  SelectedDate="{Binding FromDate }" IsTodayHighlighted="True"></DatePicker>
@@ -36,7 +36,7 @@
                 <Label Width="100" Content="payout per item" HorizontalContentAlignment="Center" />
             </StackPanel>
         </StackPanel>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}"
+        <ListBox Grid.Row="1" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedProduct}"
                  Margin="5 0 5 5" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>

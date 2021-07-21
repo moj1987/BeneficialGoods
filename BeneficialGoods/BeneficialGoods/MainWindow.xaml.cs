@@ -22,16 +22,18 @@ namespace BeneficialGoods
     public partial class MainWindow : Window
     {
         private ViewModel viewModel = new ViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
             DataContext = viewModel;
+            viewModel.LoadProducts();
             // new ShopifyResponseDataModel();
         }
 
         private void LoadData(object sender, RoutedEventArgs e)
         {
-            viewModel.LoadData();
+            viewModel.LoadReports();
         }
 
         private void Calculate(object sender, RoutedEventArgs e)
