@@ -18,13 +18,11 @@ namespace BeneficialGoods.Adapter
 
             var allProducts = productsList.products;
 
-            ///////////////////////////
-            ///TODO: Take the first tag
-            //////////////////////////
-
             foreach (ProductsItemModel p in allProducts)
             {
-                ProductDataModel products = new ProductDataModel(p.id, p.vendor, p.tags);
+                string firstTag = p.tags.Split(',')[0];
+
+                ProductDataModel products = new ProductDataModel(p.id, p.vendor, firstTag);
                 reportProducts.Add(products);
             }
             return reportProducts;
