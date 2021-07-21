@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BeneficialGoods.Model
 {
-    class ProductItemsModel
+    internal class ProductsListModel
     {
-        public IList<ProductDataModel> products { get; set; }
+        public List<ProductsItemModel> products { get; set; }
     }
 }

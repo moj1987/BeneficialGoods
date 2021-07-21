@@ -11,6 +11,6 @@ namespace BeneficialGoods.Networking
     {
         ShopifyResponseDataModel GetOrdersData(DateTime startDate, DateTime endDate);
 
-        ShopifyResponseDataModel GetProductsData();
+        string GetProductsData();
     }
 }

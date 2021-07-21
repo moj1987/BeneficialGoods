@@ -8,14 +8,14 @@ namespace BeneficialGoods.Model
 {
     internal class ProductDataModel
     {
-        public ProductDataModel(long? productId, string vendor, string tags)
+        public ProductDataModel(long? id, string vendor, string tag)
         {
-            ProductId = productId;
+            Id = id;
             Vendor = vendor;
-            Tags = tags;
+            Tag = tag;
         }
 
-        public long? ProductId
+        public long? Id
         {
             get; set;
         }
@@ -26,7 +26,7 @@ namespace BeneficialGoods.Model
             set;
         }
 
-        public string Tags
+        public string Tag
         {
             get;
             set;

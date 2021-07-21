@@ -1,30 +1,33 @@
-﻿using System;
+﻿using BeneficialGoods.Model;
+using BeneficialGoods.Networking;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Text.Json;
-using System.Data;
-using Newtonsoft.Json.Linq;
-using BeneficialGoods.Model;
-using BeneficialGoods.Utilities;
 
 namespace BeneficialGoods.Adapter
 {
-    class ProductsConverter
+    internal class ProductsConverter
     {
-        
+        private NetworkServiceImpl networkServiceImpl = new NetworkServiceImpl();
+        private List<ProductDataModel> reportProducts = new List<ProductDataModel>();
+
         public List<ProductDataModel> GetProduct()
         {
-            ProductItemsModel product = JsonSerializer.Deserialize<ProductItemsModel>(SampleProductString.GetSampleProducts());
-            var allProducts = product.products.ToList();
-            List<ProductDataModel> reportProducts = new List<ProductDataModel>();
-            foreach (ProductDataModel p in allProducts)
+            var jsonString = networkServiceImpl.GetProductsData();
+
+            ProductsListModel productsList = JsonSerializer.Deserialize<ProductsListModel>(jsonString);
+
+            var allProducts = productsList.products;
+
+            ///////////////////////////
+            ///TODO: Take the first tag
+            //////////////////////////
+
+            foreach (ProductsItemModel p in allProducts)
             {
-                ProductDataModel products = new ProductDataModel(p.ProductId, p.Vendor, p.Tags);
+                ProductDataModel products = new ProductDataModel(p.id, p.vendor, p.tags);
                 reportProducts.Add(products);
             }
             return reportProducts;
         }
-
     }
 }

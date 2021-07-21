@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BeneficialGoods.Utilities;
 using BeneficialGoods.Model;
 using System.Collections.ObjectModel;
+using BeneficialGoods.Adapter;
 
 namespace BeneficialGoods
 {
@@ -115,11 +116,11 @@ namespace BeneficialGoods
             SampleProductData sampleProducts = new SampleProductData();
             var products = sampleProducts.GetSampleReportData();
 
-            var productsWithSelectedTag = products.Where(p => p.Tags == SelectedTag);
+            var productsWithSelectedTag = products.Where(p => p.Tag == SelectedTag);
             List<long?> idTags = new List<long?>();
             foreach (ProductDataModel p in productsWithSelectedTag)
             {
-                idTags.Add(p.ProductId);
+                idTags.Add(p.Id);
             }
 
             List<ReportDataModel> ordersWithTheTag = new List<ReportDataModel>();
@@ -140,15 +141,19 @@ namespace BeneficialGoods
 
         internal void LoadProducts()
         {
-            SampleProductData sampleProducts = new SampleProductData();
-            var products = sampleProducts.GetSampleReportData();
+            ProductsConverter pc = new ProductsConverter();
+            var products = pc.GetProduct();
+
+            //SampleProductData sampleProducts = new SampleProductData();
+            //var products = sampleProducts.GetSampleReportData();
+
             Dictionary<string, ProductDataModel> productsDictionary = new Dictionary<string, ProductDataModel>();
 
             foreach (ProductDataModel p in products)
             {
-                if (!productsDictionary.ContainsKey(p.Tags))
+                if (!productsDictionary.ContainsKey(p.Tag))
                 {
-                    productsDictionary.Add(p.Tags, p);
+                    productsDictionary.Add(p.Tag, p);
                 }
             }
 

@@ -11,18 +11,17 @@ namespace BeneficialGoods.Networking
 {
     internal class NetworkServiceImpl : NetworkService
     {
-        const string SHOPIFY_URL = "https://315b4347d6b30b86a1fd63ec6feb0abf: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@beneficial-goods.myshopify.com/";
-        const string APP_ID = "315b4347d6b30b86a1fd63ec6feb0abf";
-        const string APP_PASSWORD = "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";
-        const string START_DATE = "2021-05-01T00:00:00-04:00";
-        const string END_DATE = "2021-05-31T00:00:00-04:00";
+        private const string SHOPIFY_URL = "https://315b4347d6b30b86a1fd63ec6feb0abf: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@beneficial-goods.myshopify.com/";
+        private const string APP_ID = "315b4347d6b30b86a1fd63ec6feb0abf";
+        private const string APP_PASSWORD = "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";
+        private const string START_DATE = "2021-05-01T00:00:00-04:00";
+        private const string END_DATE = "2021-05-31T00:00:00-04:00";
 
         public ShopifyResponseDataModel GetOrdersData(DateTime startDate, DateTime endDate)
         {
             try
             {
                 return (ShopifyResponseDataModel)GetOrdersResponse(startDate, endDate);
-
             }
             catch (Exception e)
             {
@@ -30,13 +29,13 @@ namespace BeneficialGoods.Networking
             }
         }
 
-        public ShopifyResponseDataModel GetProductsData()
+        public string GetProductsData()
         {
             try
             {
-                return (ShopifyResponseDataModel)GetProductResponse();
+                return GetProductResponse().Content;
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 throw e;
             }
