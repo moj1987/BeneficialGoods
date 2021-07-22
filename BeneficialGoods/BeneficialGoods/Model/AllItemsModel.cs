@@ -10,6 +10,6 @@ namespace BeneficialGoods.Model
     {
         public string created_at { get; set; }
         public string financial_status { get; set; }
-        public IList<ReportDataModel> line_items { get; set; }
+        public IList<OrdersListModel> line_items { get; set; }
     }
 }

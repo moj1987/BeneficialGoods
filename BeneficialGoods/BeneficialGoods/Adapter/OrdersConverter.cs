@@ -7,21 +7,27 @@ using System.Data;
 using Newtonsoft.Json.Linq;
 using BeneficialGoods.Model;
 using BeneficialGoods.Utilities;
+using BeneficialGoods.Networking;
 
 namespace BeneficialGoods.Adapter
 {
     internal class OrdersConverter
-    {  
-        public List<ReportDataModel> GetOrder()
+    {
+        private NetworkServiceImpl networkServiceImpl = new NetworkServiceImpl();
+        private List<ReportDataModel> reportOrders = new List<ReportDataModel>();
+        public List<ReportDataModel> GetOrder(DateTime startDate, DateTime endDate)
         {
-            OrderItemsListModel order = JsonSerializer.Deserialize<OrderItemsListModel>(SampleReportString.GetSampleData());
+            var jsonString = networkServiceImpl.GetOrdersData(startDate, endDate);
+
+            OrderItemsListModel order = JsonSerializer.Deserialize<OrderItemsListModel>(jsonString);
+
             var allOrders = order.orders.ToList();
-            List<ReportDataModel> reportOrders = new List<ReportDataModel>();
+
             foreach (AllItemsModel a in allOrders)
             {
-                foreach (ReportDataModel l in a.line_items)
+                foreach (OrdersListModel l in a.line_items)
                 {
-                    ReportDataModel reportDataModel = new ReportDataModel(l.ProductId, l.ProductName, l.ContractPrice, l.QuantitySold);
+                    ReportDataModel reportDataModel = new ReportDataModel(l.id, l.name,Decimal.Parse( l.price), l.quantity);
                     reportOrders.Add(reportDataModel);
                     
                 }

@@ -9,7 +9,7 @@ namespace BeneficialGoods.Networking
 {
     internal interface NetworkService
     {
-        ShopifyResponseDataModel GetOrdersData(DateTime startDate, DateTime endDate);
+        string GetOrdersData(DateTime startDate, DateTime endDate);
 
         string GetProductsData();
     }

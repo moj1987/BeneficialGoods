@@ -97,6 +97,7 @@
     <Compile Include="Adapter\ProductsConverter.cs" />
     <Compile Include="Model\AllItemsModel.cs" />
     <Compile Include="Model\OrderItemsListModel.cs" />
+    <Compile Include="Model\OrdersListModel.cs" />
     <Compile Include="Model\ProductDataModel.cs" />
     <Compile Include="Model\ProductsItemModel.cs" />
     <Compile Include="Model\ProductsListModel.cs" />

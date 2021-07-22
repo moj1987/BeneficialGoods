@@ -17,11 +17,11 @@ namespace BeneficialGoods.Networking
         private const string START_DATE = "2021-05-01T00:00:00-04:00";
         private const string END_DATE = "2021-05-31T00:00:00-04:00";
 
-        public ShopifyResponseDataModel GetOrdersData(DateTime startDate, DateTime endDate)
+        public string GetOrdersData(DateTime startDate, DateTime endDate)
         {
             try
             {
-                return (ShopifyResponseDataModel)GetOrdersResponse(startDate, endDate);
+                return GetOrdersResponse(startDate, endDate).Content;
             }
             catch (Exception e)
             {
