@@ -61,6 +61,8 @@
         </ListBox>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
 
+            <Button Width="100" Click="ExportToCSV">Export</Button>
+            
             <Button Width="100" Click="LoadData">Load</Button>
 
             <Button Width="100" Click="Calculate">Calculate</Button>
