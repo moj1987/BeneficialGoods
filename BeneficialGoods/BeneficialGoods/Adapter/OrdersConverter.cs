@@ -15,7 +15,8 @@ namespace BeneficialGoods.Adapter
     {
         private NetworkServiceImpl networkServiceImpl = new NetworkServiceImpl();
         private List<ReportDataModel> reportOrders = new List<ReportDataModel>();
-        public List<ReportDataModel> GetOrder(DateTime startDate, DateTime endDate)
+
+        public List<ReportDataModel> GetOrder(string startDate, string endDate)
         {
             var jsonString = networkServiceImpl.GetOrdersData(startDate, endDate);
 
@@ -27,9 +28,8 @@ namespace BeneficialGoods.Adapter
             {
                 foreach (OrdersListModel l in a.line_items)
                 {
-                    ReportDataModel reportDataModel = new ReportDataModel(l.id, l.name,Decimal.Parse( l.price), l.quantity);
+                    ReportDataModel reportDataModel = new ReportDataModel(l.product_id, l.name, Decimal.Parse(l.price), l.quantity);
                     reportOrders.Add(reportDataModel);
-                    
                 }
             }
             return reportOrders;

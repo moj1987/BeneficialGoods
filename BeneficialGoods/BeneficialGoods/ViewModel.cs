@@ -17,6 +17,7 @@ namespace BeneficialGoods
         #region Properties
 
         private List<ReportDataModel> orders = new List<ReportDataModel>();
+        private List<ProductDataModel> products = new List<ProductDataModel>();
 
         public BindingList<ReportDataModel> Orders
         {
@@ -84,7 +85,7 @@ namespace BeneficialGoods
             set { _selectedTag = value; FilterOrders(); }
         }
 
-        private DateTime _fromDate = DateTime.Now.Date;
+        private DateTime _fromDate = DateTime.Now;
 
         public DateTime FromDate
         {
@@ -92,7 +93,7 @@ namespace BeneficialGoods
             set { _fromDate = value; }
         }
 
-        private DateTime _toDate = DateTime.Now.Date;
+        private DateTime _toDate = DateTime.Now;
 
         public DateTime ToDate
         {
@@ -112,7 +113,7 @@ namespace BeneficialGoods
             }
 
             SampleProductData sampleProducts = new SampleProductData();
-            var products = sampleProducts.GetSampleReportData();
+            //var products = sampleProducts.GetSampleReportData();
 
             var productsWithSelectedTag = products.Where(p => p.Tag == SelectedTag);
             List<long?> idTags = new List<long?>();
@@ -140,7 +141,7 @@ namespace BeneficialGoods
         internal void LoadProducts()
         {
             ProductsConverter pc = new ProductsConverter();
-            var products = pc.GetProduct();
+            products = pc.GetProduct();
 
             //SampleProductData sampleProducts = new SampleProductData();
             //var products = sampleProducts.GetSampleReportData();
@@ -164,14 +165,57 @@ namespace BeneficialGoods
 
         internal void LoadReports()
         {
-            SampleReportData sampleReport = new SampleReportData();
+            /*SampleReportData sampleReport = new SampleReportData();
             var sampleReports = sampleReport.GetSampleReportData2();
-            var sortedReports = sampleReports.OrderBy(c => c.ProductName);
+            */
+
+            OrdersConverter ordersConverter = new OrdersConverter();
+
+            //var reports = ordersConverter.GetOrder(FromDate.ToString("yyyy-MM-ddTHH:mm:ss"), ToDate.ToString("yyyy-MM-ddTHH:mm:ss"));
+
+            var x = new DateTime(2021, 05, 1);
+            var y = new DateTime(2021, 05, 31);
+
+            var a = FromDate.ToString("yyyy-MM-ddTHH:mm:ss");
+            var b = ToDate.ToString("yyyy-MM-ddTHH:mm:ss");
+
+            var reports = ordersConverter.GetOrder(a, b);
+            var mergedReports = MergeRepetitiveOrders(reports);
+
+            var sortedReports = mergedReports.Values.OrderBy(c => c.ProductName);
             foreach (ReportDataModel r in sortedReports)
             {
                 orders.Add(r);
             }
             ShowAllOrders();
+        }
+
+        private Dictionary<string, ReportDataModel> MergeRepetitiveOrders(List<ReportDataModel> reports)
+        {
+            var mergedProductsList = new Dictionary<String, ReportDataModel>();
+            decimal tips = 0;
+
+            foreach (ReportDataModel c in reports)
+            {
+                if (c.ProductId == null)
+                {
+                    tips += c.ContractPrice;
+                    continue;
+                }
+
+                if (mergedProductsList.ContainsKey(c.ProductName))
+                {
+                    mergedProductsList[c.ProductName].QuantitySold += c.QuantitySold;
+                }
+                else
+                {
+                    mergedProductsList.Add(c.ProductName, c);
+                }
+            }
+
+            mergedProductsList.Add("Tip", new ReportDataModel(null, "Tip", tips, 1));
+
+            return mergedProductsList;
         }
 
         internal void Calculate()
@@ -209,7 +253,6 @@ namespace BeneficialGoods
                    }
                });
             return sbData;
-
         }
 
         #region Property Changed

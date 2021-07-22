@@ -9,7 +9,7 @@ namespace BeneficialGoods.Networking
 {
     internal interface NetworkService
     {
-        string GetOrdersData(DateTime startDate, DateTime endDate);
+        string GetOrdersData(string startDate, string endDate);
 
         string GetProductsData();
     }

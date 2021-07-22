@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace BeneficialGoods.Model
 {
-    class OrdersListModel
+    internal class OrdersListModel
     {
-        public long? id
+        public long? product_id
         {
             get; set;
         }
+
         public string name
         {
             get;

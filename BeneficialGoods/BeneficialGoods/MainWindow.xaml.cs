@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using BeneficialGoods.Adapter;
+using System;
+using System.IO;
 using System.Text;
 using System.Windows;
 
@@ -16,6 +18,14 @@ namespace BeneficialGoods
             InitializeComponent();
             DataContext = viewModel;
             viewModel.LoadProducts();
+            /*
+                        Networking.NetworkServiceImpl ordersConverter = new Networking.NetworkServiceImpl();
+
+                        var y = new DateTime(2021, 05, 01).ToString("yyyy-MM-ddTHH:mm:ss");
+                        var z = new DateTime(2021, 05, 30);
+                        var a = new DateTime(2021, 05, 30).ToString("yyyy-MM-ddTHH:mm:ss");
+                        var reports = ordersConverter.GetOrdersData(y, a);
+                        Console.WriteLine(reports.ToString());*/
         }
 
         private void LoadData(object sender, RoutedEventArgs e)
@@ -30,7 +40,6 @@ namespace BeneficialGoods
 
         private async void ExportToCSV(object sender, RoutedEventArgs e)
         {
-
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 FileName = "PayoutReport",
@@ -50,7 +59,6 @@ namespace BeneficialGoods
                     MessageBox.Show("Your data has been saved successfully.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-
         }
     }
 }

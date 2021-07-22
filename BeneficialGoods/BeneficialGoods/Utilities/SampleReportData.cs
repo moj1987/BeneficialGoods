@@ -157,10 +157,6 @@ namespace BeneficialGoods.Utilities
 
             foreach (ReportDataModel c in products)
             {
-                //Add all tips up. After the loop is done add one obj by name of tips.
-
-                //TODO: How tips work
-
                 if (c.ProductId == null)
                 {
                     tips += c.ContractPrice;
