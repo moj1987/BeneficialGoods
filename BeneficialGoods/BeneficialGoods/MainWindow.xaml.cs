@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using BeneficialGoods.Model;
-using BeneficialGoods.Adapter;
 
 namespace BeneficialGoods
 {
@@ -39,6 +26,31 @@ namespace BeneficialGoods
         private void Calculate(object sender, RoutedEventArgs e)
         {
             viewModel.Calculate();
+        }
+
+        private async void ExportToCSV(object sender, RoutedEventArgs e)
+        {
+
+            var dialog = new Microsoft.Win32.SaveFileDialog
+            {
+                FileName = "PayoutReport",
+                DefaultExt = ".csv",
+                Filter = "CSV | *.csv"
+            };
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                FileStream stream = new FileStream(dialog.FileName, FileMode.Create);
+                using (StreamWriter sw = new StreamWriter(stream, Encoding.UTF8))
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(viewModel.GetOrdersData());
+                    await sw.WriteAsync(sb.ToString());
+                    MessageBox.Show("Your data has been saved successfully.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+
         }
     }
 }

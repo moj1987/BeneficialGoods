@@ -1,14 +1,12 @@
-﻿using System;
+﻿using BeneficialGoods.Adapter;
+using BeneficialGoods.Model;
+using BeneficialGoods.Utilities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
-using BeneficialGoods.Utilities;
-using BeneficialGoods.Model;
-using System.Collections.ObjectModel;
-using BeneficialGoods.Adapter;
 
 namespace BeneficialGoods
 {
@@ -196,6 +194,22 @@ namespace BeneficialGoods
             Orders.Clear();
             foreach (ReportDataModel r in orders)
                 Orders.Add(r);
+        }
+
+        public StringBuilder GetOrdersData()
+        {
+            StringBuilder sbData = new StringBuilder();
+            sbData.AppendLine("ProductName, ContractPrice, Fees, NetPrice, QuantitySold, PayoutPerItem");
+            List<ReportDataModel> list = Orders.ToList();
+            list.ForEach(o =>
+               {
+                   if (o != null)
+                   {
+                       sbData.AppendLine(string.Format("{0}, {1}, {2}, {3}, {4}, {5}", o.ProductName, o.ContractPrice, o.Fees, o.NetPrice, o.QuantitySold, o.PayoutPerItem));
+                   }
+               });
+            return sbData;
+
         }
 
         #region Property Changed
