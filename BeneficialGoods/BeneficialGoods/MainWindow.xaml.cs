@@ -18,19 +18,12 @@ namespace BeneficialGoods
             InitializeComponent();
             DataContext = viewModel;
             viewModel.LoadProducts();
-            /*
-                        Networking.NetworkServiceImpl ordersConverter = new Networking.NetworkServiceImpl();
-
-                        var y = new DateTime(2021, 05, 01).ToString("yyyy-MM-ddTHH:mm:ss");
-                        var z = new DateTime(2021, 05, 30);
-                        var a = new DateTime(2021, 05, 30).ToString("yyyy-MM-ddTHH:mm:ss");
-                        var reports = ordersConverter.GetOrdersData(y, a);
-                        Console.WriteLine(reports.ToString());*/
         }
 
         private void LoadData(object sender, RoutedEventArgs e)
         {
-            viewModel.LoadReports();
+            viewModel.ShowReports();
+            viewModel.ShowAllTags();
         }
 
         private void Calculate(object sender, RoutedEventArgs e)

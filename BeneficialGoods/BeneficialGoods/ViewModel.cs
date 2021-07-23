@@ -12,6 +12,8 @@ namespace BeneficialGoods
     internal class ViewModel : INotifyPropertyChanged
     {
         private const string TAG_ALL = "All";
+        private const string TAG_BENEFICIAL_GOODS = "*BG";
+        private const string TAG_TIP = "Tip";
 
         #region Properties
 
@@ -49,7 +51,7 @@ namespace BeneficialGoods
         public decimal Fees
         {
             get { return _fees; }
-            set { _fees = value; propertyChanged(); }
+            set { _fees = value; }
         }
 
         private decimal _netPrice;
@@ -89,7 +91,7 @@ namespace BeneficialGoods
         public string SelectedTag
         {
             get { return _selectedTag; }
-            set { _selectedTag = value; FilterOrders(); }
+            set { _selectedTag = value; FilterOrdersOnSelectedTag(); }
         }
 
         private DateTime _fromDate = DateTime.Now;
@@ -110,12 +112,25 @@ namespace BeneficialGoods
 
         #endregion Properties
 
-        internal void FilterOrders()
+        internal void LoadProducts()
         {
-            List<ReportDataModel> ordersWithSelectedTag = new List<ReportDataModel>();
-            List<ProductDataModel> productsWithSelectedTag = new List<ProductDataModel>();
-            List<long?> idsWithSelectedTag = new List<long?>();
+            ProductsConverter productConverter = new ProductsConverter();
+            products = productConverter.GetProducts();
+        }
 
+        internal void ShowReports()
+        {
+            var reports = LoadReports();
+            var mergedReports = MergeOrders(reports);
+            var sortedReports = SortReports(mergedReports);
+
+            AddReportsToInteralOrdersList(sortedReports);
+            ShowAllOrders();
+            CalculateTotalPayout(orders);
+        }
+
+        private void FilterOrdersOnSelectedTag()
+        {
             if (SelectedTag.Equals(TAG_ALL))
             {
                 ShowAllOrders();
@@ -123,72 +138,24 @@ namespace BeneficialGoods
                 return;
             }
 
-            productsWithSelectedTag = products.Where(p => p.Tag == SelectedTag).ToList();
-
-            foreach (ProductDataModel p in productsWithSelectedTag)
-            {
-                idsWithSelectedTag.Add(p.Id);
-            }
-
-            foreach (ReportDataModel o in orders)
-            {
-                if (idsWithSelectedTag.Contains(o.ProductId))
-                {
-                    ordersWithSelectedTag.Add(o);
-                }
-            }
-
-            Orders.Clear();
-            foreach (ReportDataModel r in ordersWithSelectedTag)
-            {
-                Orders.Add(r);
-            }
-
+            var productsWithSelectedTag = FindProductsWithSelectedTag();
+            var idsWithSelectedTag = FindProductIdsWithSelectedTag(productsWithSelectedTag);
+            var ordersWithSelectedTag = FindOrdersWithSelectedTag(idsWithSelectedTag);
+            ShowFilteredOrders(ordersWithSelectedTag);
             CalculateTotalPayout(Orders.ToList());
         }
 
-        internal void LoadProducts()
-        {
-            Dictionary<string, ProductDataModel> productsDictionary = new Dictionary<string, ProductDataModel>();
-            ProductsConverter productConverter = new ProductsConverter();
-            products = productConverter.GetProduct();
-
-            foreach (ProductDataModel p in products)
-            {
-                if (!productsDictionary.ContainsKey(p.Tag))
-                {
-                    productsDictionary.Add(p.Tag, p);
-                }
-            }
-
-            //TODO: Move to filterOrders to show available tags only
-            ProductTags.Add(TAG_ALL);
-            foreach (string t in productsDictionary.Keys)
-            {
-                ProductTags.Add(t);
-            }
-        }
-
-        internal void LoadReports()
+        private List<ReportDataModel> LoadReports()
         {
             OrdersConverter ordersConverter = new OrdersConverter();
             var fromDateString = FromDate.ToString("yyyy-MM-ddTHH:mm:ss");
             var toDateString = ToDate.ToString("yyyy-MM-ddTHH:mm:ss");
 
             var reports = ordersConverter.GetOrder(fromDateString, toDateString);
-            var mergedReports = MergeRepetitiveOrders(reports);
-            var sortedReports = mergedReports.Values.OrderBy(c => c.ProductName);
-
-            foreach (ReportDataModel r in sortedReports)
-            {
-                orders.Add(r);
-            }
-
-            ShowAllOrders();
-            CalculateTotalPayout(orders);
+            return reports;
         }
 
-        private Dictionary<string, ReportDataModel> MergeRepetitiveOrders(List<ReportDataModel> reports)
+        private Dictionary<string, ReportDataModel> MergeOrders(List<ReportDataModel> reports)
         {
             var mergedProductsList = new Dictionary<String, ReportDataModel>();
             decimal tips = 0;
@@ -211,38 +178,100 @@ namespace BeneficialGoods
                 }
             }
 
-            mergedProductsList.Add("Tip", new ReportDataModel(null, "Tip", tips, 1));
+            mergedProductsList.Add(TAG_TIP, new ReportDataModel(null, TAG_TIP, tips, 1));
 
             return mergedProductsList;
         }
 
-        internal void ShowAllOrders()
+        private List<ReportDataModel> SortReports(Dictionary<string, ReportDataModel> mergedReports)
+        {
+            var sortedReports = mergedReports.Values.OrderBy(c => c.ProductName).ToList();
+            return sortedReports;
+        }
+
+        private void AddReportsToInteralOrdersList(List<ReportDataModel> sortedReports)
+        {
+            foreach (ReportDataModel r in sortedReports)
+            {
+                orders.Add(r);
+            }
+        }
+
+        internal void ShowAllTags()
+        {
+            Dictionary<string, ProductDataModel> productsDictionary = new Dictionary<string, ProductDataModel>();
+
+            foreach (ProductDataModel p in products)
+            {
+                if (!productsDictionary.ContainsKey(p.Tag))
+                {
+                    productsDictionary.Add(p.Tag, p);
+                }
+            }
+
+            ProductTags.Add(TAG_ALL);
+            foreach (string t in productsDictionary.Keys)
+            {
+                ProductTags.Add(t);
+            }
+        }
+
+        private List<ProductDataModel> FindProductsWithSelectedTag()
+        {
+            List<ProductDataModel> productsWithSelectedTag = new List<ProductDataModel>();
+            productsWithSelectedTag = products.Where(p => p.Tag == SelectedTag).ToList();
+            return productsWithSelectedTag;
+        }
+
+        private List<long?> FindProductIdsWithSelectedTag(List<ProductDataModel> productsWithSelectedTag)
+        {
+            List<long?> idsWithSelectedTag = new List<long?>();
+
+            foreach (ProductDataModel p in productsWithSelectedTag)
+            {
+                idsWithSelectedTag.Add(p.Id);
+            }
+            return idsWithSelectedTag;
+        }
+
+        private List<ReportDataModel> FindOrdersWithSelectedTag(List<long?> idsWithSelectedTag)
+        {
+            List<ReportDataModel> ordersWithSelectedTag = new List<ReportDataModel>();
+
+            foreach (ReportDataModel o in orders)
+            {
+                if (idsWithSelectedTag.Contains(o.ProductId))
+                {
+                    ordersWithSelectedTag.Add(o);
+                }
+            }
+
+            return ordersWithSelectedTag;
+        }
+
+        private void ShowAllOrders()
         {
             Orders.Clear();
             foreach (ReportDataModel r in orders)
                 Orders.Add(r);
         }
 
-        public StringBuilder GetOrdersData()
+        private void ShowFilteredOrders(List<ReportDataModel> filteredOrders)
         {
-            StringBuilder sbData = new StringBuilder();
-            sbData.AppendLine("ProductName, ContractPrice, Fees, NetPrice, QuantitySold, PayoutPerItem");
-            List<ReportDataModel> list = Orders.ToList();
-            list.ForEach(o =>
-               {
-                   if (o != null)
-                   {
-                       sbData.AppendLine(string.Format("{0}, {1}, {2}, {3}, {4}, {5}", o.ProductName, o.ContractPrice, o.Fees, o.NetPrice, o.QuantitySold, o.PayoutPerItem));
-                   }
-               });
-            return sbData;
+            Orders.Clear();
+            foreach (ReportDataModel r in filteredOrders)
+                Orders.Add(r);
         }
 
         internal void CalculatePayoutPerItem()
         {
             foreach (ReportDataModel r in orders)
             {
-                if (r.Fees <= 0)
+                if (r.Fees <= 0 || r.Fees >= r.ContractPrice)
+                {
+                    continue;
+                }
+                if (!r.ProductId.HasValue)
                 {
                     continue;
                 }
@@ -254,13 +283,28 @@ namespace BeneficialGoods
             CalculateTotalPayout(Orders.ToList());
         }
 
-        internal void CalculateTotalPayout(List<ReportDataModel> orders)
+        private void CalculateTotalPayout(List<ReportDataModel> orders)
         {
             TotalPayout = 0;
             foreach (var i in orders)
             {
                 TotalPayout += i.PayoutPerItem;
             }
+        }
+
+        internal StringBuilder GetOrdersData()
+        {
+            StringBuilder sbData = new StringBuilder();
+            sbData.AppendLine("ProductName, ContractPrice, Fees, NetPrice, QuantitySold, PayoutPerItem");
+            List<ReportDataModel> list = Orders.ToList();
+            list.ForEach(o =>
+            {
+                if (o != null)
+                {
+                    sbData.AppendLine(string.Format("{0}, {1}, {2}, {3}, {4}, {5}", o.ProductName, o.ContractPrice, o.Fees, o.NetPrice, o.QuantitySold, o.PayoutPerItem));
+                }
+            });
+            return sbData;
         }
 
         #region Property Changed

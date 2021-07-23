@@ -10,7 +10,7 @@ namespace BeneficialGoods.Adapter
         private NetworkServiceImpl networkServiceImpl = new NetworkServiceImpl();
         private List<ProductDataModel> reportProducts = new List<ProductDataModel>();
 
-        public List<ProductDataModel> GetProduct()
+        public List<ProductDataModel> GetProducts()
         {
             var jsonString = networkServiceImpl.GetProductsData();
 
