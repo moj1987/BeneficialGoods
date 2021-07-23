@@ -246,6 +246,12 @@ namespace BeneficialGoods
                 }
             }
 
+            if (SelectedTag.Equals(TAG_BENEFICIAL_GOODS))
+            {
+                var tips = orders.Find(o => o.ProductName.Equals(TAG_TIP));
+                ordersWithSelectedTag.Add(tips);
+            }
+
             return ordersWithSelectedTag;
         }
 
@@ -267,14 +273,17 @@ namespace BeneficialGoods
         {
             foreach (ReportDataModel r in orders)
             {
+                if (r.ProductName.Equals(TAG_TIP))
+                {
+                    r.PayoutPerItem = r.ContractPrice;
+                    continue;
+                }
+
                 if (r.Fees <= 0 || r.Fees >= r.ContractPrice)
                 {
                     continue;
                 }
-                if (!r.ProductId.HasValue)
-                {
-                    continue;
-                }
+
                 r.NetPrice = r.CalculateNetPrice(r.Fees);
                 r.PayoutPerItem = r.CalculatePayoutPerItem(r.NetPrice);
             }
