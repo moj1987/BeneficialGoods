@@ -35,7 +35,7 @@ namespace BeneficialGoods
 
         private void Calculate(object sender, RoutedEventArgs e)
         {
-            viewModel.Calculate();
+            viewModel.CalculatePayoutPerItem();
         }
 
         private async void ExportToCSV(object sender, RoutedEventArgs e)

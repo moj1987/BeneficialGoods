@@ -48,23 +48,30 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="{Binding ProductName}" HorizontalContentAlignment="Center" />
-                        <Label Grid.Column="1" Content="{Binding ContractPrice}" HorizontalContentAlignment="Center" />
-                        <TextBox Grid.Column="2" Text="{Binding Fees}" HorizontalContentAlignment="Center" />
-                        <Label Grid.Column="3" Content="{Binding NetPrice}" HorizontalContentAlignment="Center" />
-                        <Label Grid.Column="4" Content="{Binding QuantitySold}" HorizontalContentAlignment="Center" />
-                        <Label Grid.Column="5" Content="{Binding PayoutPerItem}" HorizontalContentAlignment="Center" />
+                        <Label Grid.Column="0" Content="{Binding ProductName}" HorizontalContentAlignment="Left" />
+                        <Label Grid.Column="1" Content="{Binding ContractPrice}" HorizontalContentAlignment="Right" />
+                        <TextBox Grid.Column="2" Text="{Binding Fees}" HorizontalContentAlignment="Right" />
+                        <Label Grid.Column="3" Content="{Binding NetPrice}" HorizontalContentAlignment="Right" />
+                        <Label Grid.Column="4" Content="{Binding QuantitySold}" HorizontalContentAlignment="Right" />
+                        <Label Grid.Column="5" Content="{Binding PayoutPerItem}" HorizontalContentAlignment="Right" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Width="220" Content="Total payout" />
 
-            <Button Width="100" Click="ExportToCSV">Export</Button>
+                <Label  Content="{Binding TotalPayout}" FontSize="20" Width="220" HorizontalContentAlignment="Right" />
+            </StackPanel>
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
 
-            <Button Width="100" Click="LoadData">Load</Button>
+                <Button Width="100" Click="ExportToCSV">Export</Button>
 
-            <Button Width="100" Click="Calculate">Calculate</Button>
+                <Button Width="100" Click="LoadData">Load</Button>
+
+                <Button Width="100" Click="Calculate">Calculate</Button>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

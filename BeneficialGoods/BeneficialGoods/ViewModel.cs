@@ -77,6 +77,14 @@ namespace BeneficialGoods
             set { _payoutPerItem = value; }
         }
 
+        private decimal _totalPayout;
+
+        public decimal TotalPayout
+        {
+            get { return _totalPayout; }
+            set { _totalPayout = value; propertyChanged(); }
+        }
+
         private string _selectedTag;
 
         public string SelectedTag
@@ -109,6 +117,7 @@ namespace BeneficialGoods
             if (SelectedTag.Equals(ALL_TAG))
             {
                 ShowAllOrders();
+                CalculateTotalPayout(orders);
                 return;
             }
 
@@ -136,6 +145,7 @@ namespace BeneficialGoods
             {
                 Orders.Add(r);
             }
+            CalculateTotalPayout(Orders.ToList());
         }
 
         internal void LoadProducts()
@@ -188,6 +198,7 @@ namespace BeneficialGoods
                 orders.Add(r);
             }
             ShowAllOrders();
+            CalculateTotalPayout(orders);
         }
 
         private Dictionary<string, ReportDataModel> MergeRepetitiveOrders(List<ReportDataModel> reports)
@@ -218,21 +229,6 @@ namespace BeneficialGoods
             return mergedProductsList;
         }
 
-        internal void Calculate()
-        {
-            foreach (ReportDataModel r in orders)
-            {
-                if (r.Fees <= 0)
-                {
-                    continue;
-                }
-                r.NetPrice = r.CalculateNetPrice(r.Fees);
-                r.PayoutPerItem = r.CalculatePayoutPerItem(r.NetPrice);
-            }
-
-            this.Orders.ResetBindings();
-        }
-
         internal void ShowAllOrders()
         {
             Orders.Clear();
@@ -253,6 +249,31 @@ namespace BeneficialGoods
                    }
                });
             return sbData;
+        }
+
+        internal void CalculatePayoutPerItem()
+        {
+            foreach (ReportDataModel r in orders)
+            {
+                if (r.Fees <= 0)
+                {
+                    continue;
+                }
+                r.NetPrice = r.CalculateNetPrice(r.Fees);
+                r.PayoutPerItem = r.CalculatePayoutPerItem(r.NetPrice);
+            }
+
+            this.Orders.ResetBindings();
+            CalculateTotalPayout(Orders.ToList());
+        }
+
+        internal void CalculateTotalPayout(List<ReportDataModel> orders)
+        {
+            TotalPayout = 0;
+            foreach (var i in orders)
+            {
+                TotalPayout += i.PayoutPerItem;
+            }
         }
 
         #region Property Changed
