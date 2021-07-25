@@ -36,8 +36,8 @@ namespace BeneficialGoods
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 FileName = "PayoutReport",
-                DefaultExt = ".csv",
-                Filter = "CSV | *.csv"
+                DefaultExt = ".xls",
+                Filter = "xls | *.xls"
             };
             bool? result = dialog.ShowDialog();
 
