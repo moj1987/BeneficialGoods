@@ -37,7 +37,7 @@ namespace BeneficialGoods
             {
                 FileName = "PayoutReport",
                 DefaultExt = ".xls",
-                Filter = "xls | *.xls"
+                Filter = "csv | *.csv"
             };
             bool? result = dialog.ShowDialog();
 
