@@ -1,0 +1,94 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\Computer Application Development\\Term 2\\Project\\capstone-cad21\\BeneficialGoods\\BeneficialGoodsTest\\BeneficialGoodsTest.csproj": {}
+  },
+  "projects": {
+    "E:\\Computer Application Development\\Term 2\\Project\\capstone-cad21\\BeneficialGoods\\BeneficialGoodsTest\\BeneficialGoodsTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Computer Application Development\\Term 2\\Project\\capstone-cad21\\BeneficialGoods\\BeneficialGoodsTest\\BeneficialGoodsTest.csproj",
+        "projectName": "BeneficialGoodsTest",
+        "projectPath": "E:\\Computer Application Development\\Term 2\\Project\\capstone-cad21\\BeneficialGoods\\BeneficialGoodsTest\\BeneficialGoodsTest.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "E:\\Computer Application Development\\Term 2\\Project\\capstone-cad21\\BeneficialGoods\\BeneficialGoodsTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "E:\\Computer Application Development\\Term 2\\Project\\capstone-cad21\\BeneficialGoods\\BeneficialGoods\\BeneficialGoods.csproj": {
+                "projectPath": "E:\\Computer Application Development\\Term 2\\Project\\capstone-cad21\\BeneficialGoods\\BeneficialGoods\\BeneficialGoods.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.5.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.205\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\Computer Application Development\\Term 2\\Project\\capstone-cad21\\BeneficialGoods\\BeneficialGoods\\BeneficialGoods.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\Computer Application Development\\Term 2\\Project\\capstone-cad21\\BeneficialGoods\\BeneficialGoods\\BeneficialGoods.csproj",
+        "projectName": "BeneficialGoods",
+        "projectPath": "E:\\Computer Application Development\\Term 2\\Project\\capstone-cad21\\BeneficialGoods\\BeneficialGoods\\BeneficialGoods.csproj"
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    }
+  }
+}
