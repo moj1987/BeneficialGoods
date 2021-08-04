@@ -304,15 +304,18 @@ namespace BeneficialGoods
         internal StringBuilder GetOrdersData()
         {
             StringBuilder sbData = new StringBuilder();
+            sbData.AppendLine($"FromDate, {FromDate}");
+            sbData.AppendLine($"ToDate, {ToDate}");
             sbData.AppendLine("ProductName, ContractPrice, Fees, NetPrice, QuantitySold, PayoutPerItem");
             List<ReportDataModel> list = Orders.ToList();
             list.ForEach(o =>
             {
                 if (o != null)
                 {
-                    sbData.AppendLine(string.Format("{0}, {1}, {2}, {3}, {4}, {5}", o.ProductName, o.ContractPrice, o.Fees, o.NetPrice, o.QuantitySold, o.PayoutPerItem));
+                    sbData.AppendLine(string.Format("{0}, {1}, {2}, {3}, {4}, {5}", o.ProductName, o.ContractPrice.ToString("N2"), o.Fees.ToString("N2"), o.NetPrice.ToString("N2"), o.QuantitySold, o.PayoutPerItem.ToString("N2")));
                 }
             });
+            sbData.AppendLine($"Total, {TotalPayout}");
             return sbData;
         }
 

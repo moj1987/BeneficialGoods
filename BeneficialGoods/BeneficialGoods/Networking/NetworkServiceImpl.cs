@@ -14,8 +14,6 @@ namespace BeneficialGoods.Networking
         private const string SHOPIFY_URL = "https://315b4347d6b30b86a1fd63ec6feb0abf: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@beneficial-goods.myshopify.com/";
         private const string APP_ID = "315b4347d6b30b86a1fd63ec6feb0abf";
         private const string APP_PASSWORD = "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";
-        private const string START_DATE = "2021-05-01T00:00:00-04:00";
-        private const string END_DATE = "2021-05-31T00:00:00-04:00";
 
         public string GetOrdersData(string startDate, string endDate)
         {
