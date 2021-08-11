@@ -33,24 +33,31 @@ namespace BeneficialGoods
 
         private async void ExportToCSV(object sender, RoutedEventArgs e)
         {
-            var dialog = new Microsoft.Win32.SaveFileDialog
+            try
             {
-                FileName = "PayoutReport",
-                DefaultExt = ".xls",
-                Filter = "csv | *.csv"
-            };
-            bool? result = dialog.ShowDialog();
-
-            if (result == true)
-            {
-                FileStream stream = new FileStream(dialog.FileName, FileMode.Create);
-                using (StreamWriter sw = new StreamWriter(stream, Encoding.UTF8))
+                var dialog = new Microsoft.Win32.SaveFileDialog
                 {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append(viewModel.GetOrdersData());
-                    await sw.WriteAsync(sb.ToString());
-                    MessageBox.Show("Your data has been saved successfully.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                    FileName = "PayoutReport",
+                    DefaultExt = ".xls",
+                    Filter = "csv | *.csv"
+                };
+                bool? result = dialog.ShowDialog();
+
+                if (result == true)
+                {
+                    FileStream stream = new FileStream(dialog.FileName, FileMode.Create);
+                    using (StreamWriter sw = new StreamWriter(stream, Encoding.UTF8))
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append(viewModel.GetOrdersData());
+                        await sw.WriteAsync(sb.ToString());
+                        MessageBox.Show("Your data has been saved successfully.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error while saving data. Your file may be used by other application. Please try again!", "Message", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
