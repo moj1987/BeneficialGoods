@@ -13,27 +13,33 @@
             <RowDefinition Height="5*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel VerticalAlignment="Bottom">
-            <Label Content="LOGO " HorizontalAlignment="Center"></Label>
-            <Label Content="Beneficial Goods" HorizontalAlignment="Center"></Label>
-            <Label Content="Beneficiary Name" HorizontalAlignment="Center"></Label>
-            <ComboBox Name="BeneficiaryName" Height="24" Width="200"
-                      ItemsSource="{Binding ProductTags}"  SelectedItem="{Binding SelectedTag}" />
-            <!--DisplayMemberPath="Tags"-->
+        <StackPanel>
+            <Label Content="Beneficial Goods" HorizontalAlignment="Center" FontSize="35"></Label>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Width="50" Content="From" HorizontalContentAlignment="Center" />
                 <DatePicker Width="220"  SelectedDate="{Binding FromDate }" IsTodayHighlighted="True"></DatePicker>
                 <Label Width="50" Content="To" HorizontalContentAlignment="Center" />
                 <DatePicker Width="220"  SelectedDate="{Binding ToDate}" IsTodayHighlighted="True"></DatePicker>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                <Label Width="220" Content="Product name" HorizontalContentAlignment="Center" />
-                <Label Width="100" Content="contract price" HorizontalContentAlignment="Center" />
-                <Label Width="100" Content="fees" HorizontalContentAlignment="Center" />
-                <Label Width="100" Content="net price"  HorizontalContentAlignment="Center" />
-                <Label Width="100" Content="quantity sold" HorizontalContentAlignment="Center" />
-                <Label Width="100" Content="payout per item" HorizontalContentAlignment="Center" />
-            </StackPanel>
+        </StackPanel>
+        <StackPanel  VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Product name" HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Grid.Column="1" Content="contract price" HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Grid.Column="2" Content="fees" HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Grid.Column="3" Content="net price"  HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Grid.Column="4" Content="quantity sold" HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Grid.Column="5" Content="payout per item" HorizontalContentAlignment="Center" FontWeight="Bold" />
+            </Grid>
         </StackPanel>
         <ListBox Grid.Row="1" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedProduct}"
                  Margin="5 0 5 5" HorizontalContentAlignment="Stretch">
@@ -60,9 +66,16 @@
         </ListBox>
         <StackPanel Grid.Row="2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label Width="220" Content="Total payout" />
+                <Label  Content="Tag" />
+                <ComboBox Name="BeneficiaryName" Height="24" Width="100"
+                      ItemsSource="{Binding ProductTags}"  SelectedItem="{Binding SelectedTag}" />
+                <!--DisplayMemberPath="Tags"-->
+                <Label  Content="Beneficiary name" />
+                <TextBox Width="250" Text="{Binding BeneficiaryName}" />
 
-                <Label  Content="{Binding TotalPayout}" FontSize="20" Width="220" HorizontalContentAlignment="Right" />
+                <Label Width="80" Content="Total payout" />
+
+                <Label  Content="{Binding TotalPayout}" FontSize="20" Width="100" HorizontalContentAlignment="Right" />
             </StackPanel>
             <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
 

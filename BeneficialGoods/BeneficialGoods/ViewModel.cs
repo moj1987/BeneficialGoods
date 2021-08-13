@@ -110,9 +110,9 @@ namespace BeneficialGoods
             set { _toDate = value; }
         }
 
-        private decimal beneficiaryName;
+        private string beneficiaryName;
 
-        public decimal BeneficiaryName
+        public string BeneficiaryName
         {
             get { return beneficiaryName; }
             set { beneficiaryName = value; }
