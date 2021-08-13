@@ -6,8 +6,8 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:BeneficialGoods"
         mc:Ignorable="d"
-        Title="Beneficial Goods" Height="550" Width="800">
-    <Grid>
+        Title="Beneficial Goods" Height="550" Width="850">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="5*"></RowDefinition>
@@ -33,12 +33,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="Product name" HorizontalContentAlignment="Center" FontWeight="Bold" />
-                <Label Grid.Column="1" Content="contract price" HorizontalContentAlignment="Center" FontWeight="Bold" />
-                <Label Grid.Column="2" Content="fees" HorizontalContentAlignment="Center" FontWeight="Bold" />
-                <Label Grid.Column="3" Content="net price"  HorizontalContentAlignment="Center" FontWeight="Bold" />
-                <Label Grid.Column="4" Content="quantity sold" HorizontalContentAlignment="Center" FontWeight="Bold" />
-                <Label Grid.Column="5" Content="payout per item" HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Grid.Column="0" Content="Product name" HorizontalContentAlignment="Left"  FontWeight="Bold" />
+                <Label Grid.Column="1" Content="contract price" HorizontalContentAlignment="Right" FontWeight="Bold" />
+                <Label Grid.Column="2" Content="fees" HorizontalContentAlignment="Right" FontWeight="Bold" />
+                <Label Grid.Column="3" Content="net price"  HorizontalContentAlignment="Right" FontWeight="Bold" />
+                <Label Grid.Column="4" Content="quantity sold" HorizontalContentAlignment="Right" FontWeight="Bold" />
+                <Label Grid.Column="5" Content="payout per item" HorizontalContentAlignment="Right" FontWeight="Bold" FontSize="10" />
             </Grid>
         </StackPanel>
         <ListBox Grid.Row="1" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedProduct}"
