@@ -120,6 +120,8 @@ namespace BeneficialGoods
 
         internal void ShowReports()
         {
+            orders.Clear();
+
             var reports = LoadReports();
             var mergedReports = MergeOrders(reports);
             var sortedReports = SortReports(mergedReports);
@@ -209,6 +211,7 @@ namespace BeneficialGoods
                 }
             }
 
+            ProductTags.Clear();
             ProductTags.Add(TAG_ALL);
             foreach (string t in productsDictionary.Keys)
             {
