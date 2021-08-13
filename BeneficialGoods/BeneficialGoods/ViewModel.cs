@@ -110,6 +110,14 @@ namespace BeneficialGoods
             set { _toDate = value; }
         }
 
+        private decimal beneficiaryName;
+
+        public decimal BeneficiaryName
+        {
+            get { return beneficiaryName; }
+            set { beneficiaryName = value; }
+        }
+
         #endregion Properties
 
         internal void LoadProducts()
@@ -309,7 +317,7 @@ namespace BeneficialGoods
             StringBuilder sbData = new StringBuilder();
             sbData.AppendLine($"PAYOUT STATEMENT");
             sbData.AppendLine($"for");
-            sbData.AppendLine($"{SelectedTag}");
+            sbData.AppendLine($"{BeneficiaryName}");
             sbData.AppendLine($"");
 
             sbData.AppendLine($"From: {FromDate}");
