@@ -7,9 +7,9 @@ using BeneficialGoods.Model;
 
 namespace BeneficialGoods.Utilities
 {
-    internal class SampleProductData
+    public static class SampleProductData
     {
-        public List<ProductDataModel> GetSampleReportData()
+        public static List<ProductDataModel> GetSampleReportData()
         {
             ProductDataModel SampleProductData1 = new ProductDataModel(5987061596323, "Oromia Coffee Union", "End Polio Now");
             ProductDataModel SampleProductData2 = new ProductDataModel(6081524695203, "Oromia Coffee Union", "End Polio Now");

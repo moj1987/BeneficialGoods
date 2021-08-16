@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BeneficialGoods.Model
 {
-    internal class ReportDataModel
+    public class ReportDataModel
     {
         public ReportDataModel(long? productId, string productName, decimal contractPrice, int quantitySold)
         {

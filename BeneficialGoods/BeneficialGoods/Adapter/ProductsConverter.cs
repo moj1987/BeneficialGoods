@@ -5,12 +5,12 @@ using System.Text.Json;
 
 namespace BeneficialGoods.Adapter
 {
-    internal class ProductsConverter
+    internal static class ProductsConverter
     {
-        private NetworkServiceImpl networkServiceImpl = new NetworkServiceImpl();
-        private List<ProductDataModel> reportProducts = new List<ProductDataModel>();
+        private static NetworkServiceImpl networkServiceImpl = new NetworkServiceImpl();
+        private static List<ProductDataModel> reportProducts = new List<ProductDataModel>();
 
-        public List<ProductDataModel> GetProducts()
+        public static List<ProductDataModel> GetProducts()
         {
             var jsonString = networkServiceImpl.GetProductsData();
 

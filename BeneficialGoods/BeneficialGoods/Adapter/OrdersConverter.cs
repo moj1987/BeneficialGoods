@@ -11,12 +11,12 @@ using BeneficialGoods.Networking;
 
 namespace BeneficialGoods.Adapter
 {
-    internal class OrdersConverter
+    internal static class OrdersConverter
     {
-        private NetworkServiceImpl networkServiceImpl = new NetworkServiceImpl();
-        private List<ReportDataModel> reportOrders = new List<ReportDataModel>();
+        private static NetworkServiceImpl networkServiceImpl = new NetworkServiceImpl();
+        private static List<ReportDataModel> reportOrders = new List<ReportDataModel>();
 
-        public List<ReportDataModel> GetOrder(string startDate, string endDate)
+        public static List<ReportDataModel> GetOrder(string startDate, string endDate)
         {
             var jsonString = networkServiceImpl.GetOrdersData(startDate, endDate);
 

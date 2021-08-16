@@ -4,6 +4,16 @@
     "C:\\Users\\M\\source\\repos\\Capstone\\BeneficialGoods\\Test\\Test.csproj": {}
   },
   "projects": {
+    "C:\\Users\\M\\source\\repos\\Capstone\\BeneficialGoods\\BeneficialGoods\\BeneficialGoods.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\M\\source\\repos\\Capstone\\BeneficialGoods\\BeneficialGoods\\BeneficialGoods.csproj",
+        "projectName": "BeneficialGoods",
+        "projectPath": "C:\\Users\\M\\source\\repos\\Capstone\\BeneficialGoods\\BeneficialGoods\\BeneficialGoods.csproj"
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
     "C:\\Users\\M\\source\\repos\\Capstone\\BeneficialGoods\\Test\\Test.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -31,7 +41,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\M\\source\\repos\\Capstone\\BeneficialGoods\\BeneficialGoods\\BeneficialGoods.csproj": {
+                "projectPath": "C:\\Users\\M\\source\\repos\\Capstone\\BeneficialGoods\\BeneficialGoods\\BeneficialGoods.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

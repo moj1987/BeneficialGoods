@@ -6,10 +6,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using BeneficialGoods.Networking;
 
 namespace BeneficialGoods
 {
-    internal class ViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
         private const string TAG_ALL = "All";
         private const string TAG_BENEFICIAL_GOODS = "*BG";
@@ -122,8 +123,7 @@ namespace BeneficialGoods
 
         internal void LoadProducts()
         {
-            ProductsConverter productConverter = new ProductsConverter();
-            products = productConverter.GetProducts();
+            products = ProductsConverter.GetProducts();
         }
 
         internal void ShowReports()
@@ -141,6 +141,11 @@ namespace BeneficialGoods
 
         private void FilterOrdersOnSelectedTag()
         {
+            if (SelectedTag == null)
+            {
+                return;
+            }
+
             if (SelectedTag.Equals(TAG_ALL))
             {
                 ShowAllOrders();
@@ -157,17 +162,16 @@ namespace BeneficialGoods
 
         private List<ReportDataModel> LoadReports()
         {
-            OrdersConverter ordersConverter = new OrdersConverter();
             var fromDateString = FromDate.ToString("yyyy-MM-ddTHH:mm:ss");
             var toDateString = ToDate.ToString("yyyy-MM-ddTHH:mm:ss");
 
-            var reports = ordersConverter.GetOrder(fromDateString, toDateString);
+            var reports = OrdersConverter.GetOrder(fromDateString, toDateString);
             return reports;
         }
 
-        private Dictionary<string, ReportDataModel> MergeOrders(List<ReportDataModel> reports)
+        public Dictionary<string, ReportDataModel> MergeOrders(List<ReportDataModel> reports)
         {
-            var mergedProductsList = new Dictionary<String, ReportDataModel>();
+            var mergedProductsList = new Dictionary<string, ReportDataModel>();
             decimal tips = 0;
 
             foreach (ReportDataModel c in reports)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BeneficialGoods.Model
 {
-    internal class ProductDataModel
+    public class ProductDataModel
     {
         public ProductDataModel(long? id, string vendor, string tag)
         {

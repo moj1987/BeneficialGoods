@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModelTest\" />
+    <ProjectReference Include="..\BeneficialGoods\BeneficialGoods.csproj" />
   </ItemGroup>
 
 </Project>
